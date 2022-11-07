@@ -1,0 +1,89 @@
+[
+  {
+    "id": 1,
+    "name": "Lunges",
+    "desc": "Challenging your balance is an essential part of a well-rounded exercise routine."
+
+  },
+  {
+    "id": 2,
+    "name": "Pushups",
+    "desc": "one of the most basic yet effective bodyweight moves you can perform because of the number of muscles that are recruited to perform them."
+  },
+  {
+    "id": 3,
+    "name": "Squats",
+    "desc": "Squats increase lower body and core strength, as well as flexibility in your lower back and hips"
+  },
+  {
+    "id": 4,
+    "name": "Burpees",
+    "desc": "burpees are a super-effective, whole-body move that provides great bang for your buck for cardiovascular endurance and muscle strength."
+  },
+  {
+    "id": 5,
+    "name": "Side planks",
+    "desc": "A healthy body requires a strong core at its foundation, and this exercise helps to gain "
+  },
+  {
+    "id": 6,
+    "name": "Planks",
+    "desc": "Planks are an effective way to target both your abdominal muscles and your whole body  ."
+  },
+  {
+    "id": 7,
+    "name": "Glute bridge",
+    "desc": "The glute bridge effectively works your entire posterior chain,                          "
+  },
+  {
+    "id": 8,
+    "name": "Abdominal Crunches",
+    "desc": "Crunches work the ab muscles and helps in developing abs.                               "
+  },
+  {
+    "id": 9,
+    "name": "Bent-over Row",
+    "desc": "This exercise works all the major muscles of the upper back, as well as the biceps"
+  },
+  {
+    "id": 10,
+    "name": "Bridge",
+    "desc": "This is a great exercise to use as a warmup. So, this exercise is helpful for stretching too                               "
+  },
+  {
+    "id": 11,
+    "name": "Straight-leg donkey kick",
+    "desc": "This exercise really build those glutes with donkey kicks.                                                          "
+
+  },
+  {
+    "id": 12,
+    "name": "Bicycle crunch",
+    "desc": " These strength exercises, a targeted ab developing and muscles building                            "
+  },
+  {
+    "id": 13,
+    "name": "Superman",
+    "desc": "Warmup Stretching exercise that can burn your calories                                                         "
+  },
+  {
+    "id": 14,
+    "name": "Jumping Jacks",
+    "desc": "The Jumping jack is a total body exercise that primarily focuses on your quads.                             "
+  },
+  {
+    "id": 15,
+    "name": "Mountain Climber",
+    "desc": "The primary muscles this exercise works upon are the abs, glutes, hips, and legs"
+  },
+  {
+    "id": 16,
+    "name": "Bear Crawls",
+    "desc": "This exercise strengthens your whole body and increases muscle power.                             "
+  },
+  {
+    "id": 17,
+    "name": "Flutter Kicks",
+    "desc": "This exercise mainly concentrates on your abdominal muscles and helps you reduce your waistline"
+  }
+]
