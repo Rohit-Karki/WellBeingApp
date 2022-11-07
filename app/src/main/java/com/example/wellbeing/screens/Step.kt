@@ -1,5 +1,6 @@
 package com.example.wellbeing.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import androidx.compose.foundation.layout.*
@@ -37,6 +38,7 @@ fun StepScreen() {
     StepCounterCard()
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Composable
 fun StepCounterCard() {
     val mContext = LocalContext.current

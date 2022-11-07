@@ -1,5 +1,6 @@
 package com.example.wellbeing.screens
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 
 import androidx.compose.ui.unit.dp
@@ -43,9 +45,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 
+@SuppressLint("SuspiciousIndentation")
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun DailyScreen(){
+
+    DailyExerciseUI()
+    DailyLayout()
 //    val navHostController = rememberNavController()
 //
 //
@@ -73,34 +79,73 @@ fun DailyScreen(){
 //
 //
 //    }
-    val navHostController = rememberNavController()
 
-
-
-    NavHost(
-        navController = navHostController,
-        startDestination = "fruits_data"
-    ){
-        composable("fruits_data"){
-            FruitGrid()
-        }
-        composable("grid_detail/{data}",
-            arguments = listOf(
-                navArgument("data"){
-                    type = NavType.StringType
-                }
-            )
-        ){navBackStackEntry ->
-            navBackStackEntry?.arguments?.getString("data")?.let { json->
-                Log.d("json","$json")
-                val data = Gson().fromJson(json,FruitsData::class.java)
-                FruitsDataDetails(data = data)
-            }
-        }
-    }
 
 
 
 
 
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DailyExerciseUI()
+{
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+
+            .size(100.dp),
+
+        shape = Shapes.large ,
+
+
+    )
+    {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+
+
+            .padding(vertical = 26.dp),
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center,
+
+
+            ) {
+            Text(
+                text ="EXERCISE",
+                color = PrimaryColor,
+                fontSize =  20.sp,
+                fontWeight = FontWeight.ExtraBold,
+                fontFamily = Poppins,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .align(alignment = Alignment.CenterHorizontally)
+                    .padding(horizontal = 10.dp)
+
+            )
+        }
+    }
+}
+
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun DailyLayout()
+{
+    val navHostController = rememberNavController()
+
+
+
+//    NavHost(
+//        navController = navHostController,
+//        startDestination = "fruits_data"
+//    ){
+//        composable("fruits_data"){
+    FruitGrid(navController = navHostController)
+//        }
+//
+//    }
+}
+
