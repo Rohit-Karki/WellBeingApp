@@ -12,6 +12,7 @@ val String.color
     get() = Color(android.graphics.Color.parseColor(this))
 
 val BackGroundColor = "#F4A950".color
+val WaterColor = "#3AB0FF".color
 val BackGroundColorSecondary = "#000000".color
 val PrimaryColor = "#F4A950".color
 val SecondaryColor = Color(0xFFFFFFFF)

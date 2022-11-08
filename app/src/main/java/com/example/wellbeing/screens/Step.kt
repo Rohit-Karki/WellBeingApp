@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -24,6 +25,7 @@ import com.example.wellbeing.ui.theme.Poppins
 import com.example.wellbeing.ui.theme.PrimaryColor
 import com.example.wellbeing.ui.theme.Shapes
 import com.example.wellbeing.utils.Constants
+import androidx.compose.material.Button as Button1
 import androidx.compose.material.Text as Text1
 
 
@@ -38,7 +40,9 @@ fun StepScreen() {
     StepCounterCard()
 }
 
+
 @SuppressLint("SuspiciousIndentation")
+
 @Composable
 fun StepCounterCard() {
     val mContext = LocalContext.current
@@ -63,7 +67,7 @@ fun StepCounterCard() {
                             fontWeight = FontWeight.ExtraBold,
                             fontSize = 100.sp
                         )
-                        Button(
+                        Button1(
                             modifier = Modifier
                                 .padding(0.dp)
                                 .clip(Shapes.medium),

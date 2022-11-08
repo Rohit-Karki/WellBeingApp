@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -56,11 +59,11 @@ fun FruitGrid(navController: NavController) {
         verticalArrangement = Arrangement.Center
     ) {
 
-        LazyColumn(
-//            columns = GridCells.Fixed(3),
+        LazyVerticalGrid(
+           columns = GridCells.Fixed(3),
             modifier = Modifier
-                .padding(20.dp)
-                .padding(vertical = 70.dp)
+
+                .padding(vertical = 50.dp)
         ){
             items(fruitsdata.size){
                 FruitDataGridItem(it,rememberNavController())

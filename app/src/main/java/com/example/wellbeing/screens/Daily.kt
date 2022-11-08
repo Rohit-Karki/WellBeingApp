@@ -19,6 +19,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -52,35 +53,6 @@ fun DailyScreen(){
 
     DailyExerciseUI()
     DailyLayout()
-//    val navHostController = rememberNavController()
-//
-//
-//    NavHost(
-//        navController = navHostController,
-//        startDestination = "exercise_data"
-//    ){
-//        composable("exercise_data"){
-//            Exercise(navController = navHostController)
-//        }
-//        composable("grid_detail/{item}",
-//            arguments = listOf(
-//                navArgument("item"){
-//                    type = NavType.StringType
-//                }
-//            )
-//        ){navBackStackEntry ->
-//
-//            navBackStackEntry?.arguments?.getString("item")?.let { json->
-//                val item = Gson().fromJson(json,ExerciseData::class.java)
-//                ExerciseDataDetails(data = item)
-//
-//            }
-//        }
-//
-//
-//    }
-
-
 
 
 
@@ -91,23 +63,13 @@ fun DailyScreen(){
 @Composable
 fun DailyExerciseUI()
 {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-
-            .size(100.dp),
-
-        shape = Shapes.large ,
 
 
-    )
-    {
         Column(modifier = Modifier
             .fillMaxWidth()
-
-
-            .padding(vertical = 26.dp),
+            .clip(shape = RoundedCornerShape(0.dp,0.dp,20.dp,20.dp))
+            .background(Color.Black.copy(alpha = 0.3f))
+            .size(50.dp),
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
 
@@ -115,7 +77,7 @@ fun DailyExerciseUI()
             ) {
             Text(
                 text ="EXERCISE",
-                color = PrimaryColor,
+                color = Color.White,
                 fontSize =  20.sp,
                 fontWeight = FontWeight.ExtraBold,
                 fontFamily = Poppins,
@@ -127,7 +89,7 @@ fun DailyExerciseUI()
             )
         }
     }
-}
+
 
 
 @OptIn(ExperimentalFoundationApi::class)
