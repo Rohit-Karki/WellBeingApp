@@ -1,25 +1,17 @@
-
-
 package com.example.wellbeing.screens
 
 import android.content.Context
-import android.content.Intent
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-
-
 import androidx.compose.material.Text
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -27,24 +19,21 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.wellbeing.Exercise.ExerciseData
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.wellbeing.Exercise.ExerciseDetailsScreen
+import com.example.wellbeing.model.ExerciseData
 import com.example.wellbeing.R
 import com.example.wellbeing.ui.theme.*
-
-//import com.example.wellbeing.Services.TrackingService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-//import com.example.wellbeing.others.Constants
-
-
 @Composable
-fun Exercise(navController: NavController){
+fun Exercise(){
     val context = LocalContext.current
     val dataFileString = getJsonDataFromAsset(context,"ExerciseList.json")
     val gson = Gson()
@@ -70,17 +59,13 @@ fun Exercise(navController: NavController){
                 fontWeight = FontWeight.Bold
             )
         }
-
-
         LazyColumn(
 
             modifier = Modifier.padding(10.dp)
         ){
             items(Exercisedata){ data->
                 ExerciseDataGridItem(data, rememberNavController())
-
             }
-
         }
 
     }
@@ -93,31 +78,18 @@ fun Exercise(navController: NavController){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExerciseDataGridItem(data: ExerciseData, navController: NavController)
-//                         , onClick: () -> Unit = {
-//    val itemVal = Gson().toJson(data)
-//    with(navController) {
-//        navigate("grid_detail/$itemVal")
-//    }
-//})
-//
-{
+fun ExerciseDataGridItem(data: ExerciseData, navController: NavController) {
 
-    Card(modifier = Modifier
+    val navigator = LocalNavigator.currentOrThrow
+
+    Card(
+        modifier = Modifier
         .clickable
-//            (onClick = onClick)
         {
-            val gson =  Gson()
-            val itemVal = gson.toJson(data)
-            navController.navigate("grid_detail/$itemVal")
-
-
+            navigator.push(ExerciseDetailsScreen(data))
         }
-
-
         .padding(10.dp)
         .fillMaxSize(),
-
         shape = RoundedCornerShape(5.dp)
     ) {
         Column(modifier = Modifier) {
@@ -170,26 +142,11 @@ fun ExerciseDataGridItem(data: ExerciseData, navController: NavController)
                 fontWeight = FontWeight.Normal,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
-
             )
-
-
         }
-
     }
-
-
-
 }
-
-
-
-
-
-
-
 
 fun getJsonDataFromAsset(context: Context, data: String):String {
     return context.assets.open(data).bufferedReader().use { it.readText() }
-
 }

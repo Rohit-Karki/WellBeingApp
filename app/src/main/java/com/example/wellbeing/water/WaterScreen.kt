@@ -1,6 +1,5 @@
 package com.example.wellbeing.screens
 
-import android.widget.Toast
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.StampedPathEffectStyle
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,9 +25,6 @@ import androidx.compose.ui.unit.sp
 //import com.example.wellbeing.ViewModel.ReminderViewModel
 import com.example.wellbeing.ui.theme.*
 import kotlinx.coroutines.InternalCoroutinesApi
-import org.intellij.lang.annotations.JdkConstants.HorizontalAlignment
-import java.sql.Date
-import java.sql.Time
 import java.text.SimpleDateFormat
 
 @Preview
@@ -54,10 +49,8 @@ fun WaterScreen(){
 //    }
 //    val reminderViewModel: ReminderViewModel = viewModel()
 //    val waterIntakeValue = reminderViewModel.waterIntakeQuantity.collectAsState()
-//
 //    Text(text = "Hello $waterIntakeValue!")
-    Card(
-    )
+    Card()
     {
         WaterHeading()
         WaterUITheme()

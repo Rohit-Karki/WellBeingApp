@@ -87,7 +87,4 @@ fun FruitsDataDetails(data: FruitsData){
             fontWeight = FontWeight.Normal,
             )
     }
-
-
-
 }

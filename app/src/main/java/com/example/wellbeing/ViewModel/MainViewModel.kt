@@ -7,23 +7,38 @@ import com.example.wellbeing.sensor.MeasurableSensor
 
 //import com.example.wellbeing.sensors.MeasurableSensor
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val stepSensor: MeasurableSensor
 ) :ViewModel() {
-    var stepCount = mutableStateOf<Float>(0f)
-    var isRunning = mutableStateOf<Boolean>(false)
+    private val _stepCount :MutableStateFlow<Float> = MutableStateFlow<Float>(0f)
+    val stepCount :StateFlow<Float> = _stepCount
+
+    private val _isRunning :MutableStateFlow<Boolean> = MutableStateFlow<Boolean>(true)
+    val isRunning :StateFlow<Boolean> = _isRunning
 
     init {
-        Log.d("Step Sensor", "init")
-        isRunning.value = true
+        _isRunning.value = true
+        startListening()
+    }
+
+    fun stopListening(){
+        _isRunning.value = false
+        stepSensor.stopListening()
+    }
+    fun startListening(){
+        _isRunning.value = true
         stepSensor.startListening()
-        stepSensor.setOnSensorValuesChangedListener { values ->
-            Log.d("Step Sensor", "value is ${values}")
-            stepCount.value = values[0]
+        stepSensor.setOnSensorValuesChangedListener { values->
+            _stepCount.value = values[0]
         }
     }
+
+
+
 }
 

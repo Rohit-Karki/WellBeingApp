@@ -34,7 +34,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.wellbeing.ExerciseDataDetails
 import com.example.wellbeing.ui.theme.Purple500
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -47,7 +46,6 @@ import com.example.wellbeing.ui.theme.PrimaryColor
 @ExperimentalFoundationApi
 @Composable
 fun FruitGrid(navController: NavController) {
-
     val context = LocalContext.current
     val dataFileString = getJsonDataFromAsset(context,"FruitsList.json")
     val gson = Gson()
@@ -70,11 +68,7 @@ fun FruitGrid(navController: NavController) {
             }
 
         }
-
     }
-
-
-
 }
 
 

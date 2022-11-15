@@ -215,4 +215,25 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:1.0.0"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
+    //Voyager
+
+    // Navigator
+    implementation "cafe.adriel.voyager:voyager-navigator:$voyager"
+
+    // BottomSheetNavigator
+    implementation "cafe.adriel.voyager:voyager-bottom-sheet-navigator:$voyager"
+
+    // TabNavigator
+    implementation "cafe.adriel.voyager:voyager-tab-navigator:$voyager"
+
+    // Transitions
+    implementation "cafe.adriel.voyager:voyager-transitions:$voyager"
+
+    // Android ViewModel integration
+    implementation "cafe.adriel.voyager:voyager-androidx:$voyager"
+
+    // Hilt integration
+    implementation "cafe.adriel.voyager:voyager-hilt:$voyager"
+
+
     }

@@ -1,4 +1,4 @@
-package com.example.wellbeing.Exercise
+package com.example.wellbeing.model
 
 class ExerciseData (
     val id: Long,

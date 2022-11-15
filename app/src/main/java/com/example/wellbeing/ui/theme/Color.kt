@@ -1,7 +1,6 @@
 package com.example.wellbeing.ui.theme
 
 import androidx.compose.ui.graphics.Color
-import com.example.wellbeing.custom.color
 
 val Purple200 = Color(0xFFBB86FC)
 val Purple500 = Color(0xFF6200EE)

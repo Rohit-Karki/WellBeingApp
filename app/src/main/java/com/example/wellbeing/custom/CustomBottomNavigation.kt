@@ -102,7 +102,7 @@ fun CustomBottomNavigationItem(item:Screen, currentDestination: NavDestination?,
 
     val background = if (isSelected) BackGroundColorSecondary.copy(alpha = 0.69f) else Color.Transparent
 //    val background = if (isSelected) MaterialTheme.colors.primary.copy(alpha = 0.1f) else Color.Transparent
-    val contentColor = if (isSelected) BackGroundColor else MaterialTheme.colors.onBackground
+//    val contentColor = if (isSelected) BackGroundColor else MaterialTheme.colors.onBackground
 
         Box(
             modifier = Modifier
@@ -134,7 +134,7 @@ fun CustomBottomNavigationItem(item:Screen, currentDestination: NavDestination?,
                     Icon(
                         imageVector = item.icon,
                         contentDescription = null,
-                        tint = contentColor,
+//                        tint = contentColor,
                         modifier = Modifier
                             .size(24.dp)
 
