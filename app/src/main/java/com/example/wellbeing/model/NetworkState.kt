@@ -34,6 +34,5 @@ sealed class State<T>{
         fun <T> error(message: String) =
             Error<T>(message)
 
-
     }
 }

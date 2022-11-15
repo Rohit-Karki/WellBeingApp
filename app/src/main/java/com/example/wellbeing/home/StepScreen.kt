@@ -45,10 +45,10 @@ fun StepScreen() {
 
 @Composable
 fun StepCounterCard() {
-    val mContext = LocalContext.current
-    val viewModel = hiltViewModel<MainViewModel>()
-    val steps = viewModel.stepCount.value
-    val isRunning = viewModel.isRunning.value
+//    val mContext = LocalContext.current
+//    val viewModel = hiltViewModel<MainViewModel>()
+//    val steps = viewModel.stepCount.value
+//    val isRunning = viewModel.isRunning.value
 
         Card(
             modifier = Modifier
@@ -63,7 +63,7 @@ fun StepCounterCard() {
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text1(
-                            text = "$steps",
+                            text = "1",
                             fontWeight = FontWeight.ExtraBold,
                             fontSize = 100.sp
                         )
