@@ -4,8 +4,10 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.WaterDrop
@@ -31,34 +33,12 @@ import java.text.SimpleDateFormat
 @OptIn(InternalCoroutinesApi::class)
 @Composable
 fun WaterScreen(){
-//    Column(
-//        modifier = Modifier
-//            .fillMaxSize()
-//            //.background(color = "#161B21".color)
-//        ,
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        Icon(
-//            imageVector = Icons.Default.WaterDrop,
-//            contentDescription = "profile",
-//            tint = "#F4A950".color
-//        )
-//        // Text to Display the current Screen
-//        Text(text = "Drinking Water", color = "#F96167".color)
-//    }
-//    val reminderViewModel: ReminderViewModel = viewModel()
-//    val waterIntakeValue = reminderViewModel.waterIntakeQuantity.collectAsState()
-//    Text(text = "Hello $waterIntakeValue!")
-    Card()
-    {
         WaterHeading()
-        WaterUITheme()
-        WaterNote()
-        WaterChart()
-    }
+        ScrollCard()
+
 
 }
+
 
 @Composable
 fun WaterHeading() {
@@ -81,6 +61,18 @@ fun WaterHeading() {
             fontWeight = FontWeight.ExtraBold,
             fontSize = 20.sp
         )
+    }
+
+}
+@Composable
+fun ScrollCard()
+{
+    Card(modifier = Modifier
+        .verticalScroll(rememberScrollState()))
+    {
+        WaterUITheme()
+        WaterNote()
+        WaterChart()
     }
 
 }
@@ -326,7 +318,7 @@ fun WaterChart(){
         }
 
     Column(
-        modifier = Modifier.padding(top = 720.dp, start = 20.dp)
+        modifier = Modifier.padding(top = 720.dp, start = 20.dp, bottom = 80.dp)
     ) {
         Text(currentDateAndTime.toString())
 

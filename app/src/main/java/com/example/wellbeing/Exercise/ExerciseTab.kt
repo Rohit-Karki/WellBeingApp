@@ -66,7 +66,7 @@ class ExerciseListScreen : Screen,AndroidScreen() {
 data class ExerciseDetailsScreen(val data: ExerciseData) : Screen {
     @Composable
     override fun Content() {
-        ExerciseGridUI()
+        ExerciseGridUI(data)
     }
 }
 
