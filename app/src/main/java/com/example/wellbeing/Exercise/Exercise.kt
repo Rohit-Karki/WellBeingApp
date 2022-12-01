@@ -1,45 +1,39 @@
-
-
 package com.example.wellbeing.screens
 
 import android.content.Context
-import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-
-
 import androidx.compose.material.Text
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
-
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.wellbeing.Exercise.ExerciseData
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.wellbeing.Exercise.ExerciseDetailsScreen
+import com.example.wellbeing.model.ExerciseData
+import com.example.wellbeing.R
 import com.example.wellbeing.ui.theme.*
-
-//import com.example.wellbeing.Services.TrackingService
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
-//import com.example.wellbeing.others.Constants
-
-
 @Composable
-fun Exercise(navController: NavController){
+fun Exercise(){
     val context = LocalContext.current
     val dataFileString = getJsonDataFromAsset(context,"ExerciseList.json")
     val gson = Gson()
@@ -65,17 +59,13 @@ fun Exercise(navController: NavController){
                 fontWeight = FontWeight.Bold
             )
         }
-
-
         LazyColumn(
 
             modifier = Modifier.padding(10.dp)
         ){
             items(Exercisedata){ data->
                 ExerciseDataGridItem(data, rememberNavController())
-
             }
-
         }
 
     }
@@ -88,27 +78,50 @@ fun Exercise(navController: NavController){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ExerciseDataGridItem(data: ExerciseData, navController: NavController, onClick: () -> Unit = {
-    val itemVal = Gson().toJson(data)
-    with(navController) {
-        navigate("grid_detail/$itemVal")
-    }
-}){
+fun ExerciseDataGridItem(data: ExerciseData, navController: NavController) {
 
-    Card(modifier = Modifier
-        .clickable (onClick = onClick)
+    val navigator = LocalNavigator.currentOrThrow
 
-//            val itemVal = Gson().toJson(data)
-//            navController.navigate("grid_detail/$itemVal")
-
-
+    Card(
+        modifier = Modifier
+        .clickable
+        {
+            navigator.push(ExerciseDetailsScreen(data))
+        }
         .padding(10.dp)
         .fillMaxSize(),
-
         shape = RoundedCornerShape(5.dp)
     ) {
         Column(modifier = Modifier) {
-
+            Image(painter = painterResource(
+                id =  when(data.id){
+                    1L-> R.drawable.lunges
+                    2L -> R.drawable.pushups
+                    3L -> R.drawable.squats
+                    4L -> R.drawable.burpees
+                    5L -> R.drawable.sideplank
+                    6L -> R.drawable.plank
+                    7L -> R.drawable.glute
+                    8L -> R.drawable.abnominal
+                    9L -> R.drawable.bent
+                    10L -> R.drawable.bridge
+                    11L -> R.drawable.straight
+                    12L -> R.drawable.bicycle
+                    13L -> R.drawable.stretch
+                    14L -> R.drawable.jumping
+                    15L -> R.drawable.mountain
+                    16L -> R.drawable.bear
+                    17L -> R.drawable.flutter
+                    else -> R.drawable.flutter
+                }
+            ),
+                contentDescription = "Grid Image",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .align(Alignment.CenterHorizontally)
+                    .clip(RoundedCornerShape(5.dp)),
+                alignment = Alignment.Center
+            )
             Spacer(modifier = Modifier.padding(3.dp))
             Text(
                 text = data.name,
@@ -129,23 +142,11 @@ fun ExerciseDataGridItem(data: ExerciseData, navController: NavController, onCli
                 fontWeight = FontWeight.Normal,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
-
             )
-
-
         }
-
     }
-
-
-
 }
-
-
-
-
 
 fun getJsonDataFromAsset(context: Context, data: String):String {
     return context.assets.open(data).bufferedReader().use { it.readText() }
-
 }

@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -17,13 +20,16 @@ import androidx.compose.material.Text
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -33,12 +39,13 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.example.wellbeing.R
 import com.example.wellbeing.model.FruitsData
+import com.example.wellbeing.ui.theme.Poppins
+import com.example.wellbeing.ui.theme.PrimaryColor
 
 
 @ExperimentalFoundationApi
 @Composable
-fun FruitGrid() {
-
+fun FruitGrid(navController: NavController) {
     val context = LocalContext.current
     val dataFileString = getJsonDataFromAsset(context,"FruitsList.json")
     val gson = Gson()
@@ -49,35 +56,19 @@ fun FruitGrid() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .height(50.dp)
-            .background(color = Purple500)
-            .padding(6.dp),
-            horizontalAlignment = Alignment.Start,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Text(
-                text ="Fruits Calories and Sugar",
-                color = Color.White,
-                fontSize =  20.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        LazyColumn(
-//            columns = GridCells.Fixed(3),
-            modifier = Modifier.padding(10.dp)
+
+        LazyVerticalGrid(
+           columns = GridCells.Fixed(3),
+            modifier = Modifier
+
+                .padding(vertical = 50.dp)
         ){
             items(fruitsdata.size){
                 FruitDataGridItem(it,rememberNavController())
             }
 
         }
-
     }
-
-
-
 }
 
 
@@ -93,14 +84,16 @@ fun FruitDataGridItem(id: Int, navController:NavController){
 
     Card(modifier = Modifier
         .clickable {
-            val gson =  Gson()
+            val gson = Gson()
             val dataJson = gson.toJson(data)
+
             navController.navigate("grid_detail/$dataJson")
         }
         .padding(10.dp)
         .fillMaxSize(),
         elevation =  5.dp,
         shape = RoundedCornerShape(5.dp)
+
     ) {
         Column(modifier = Modifier) {
             Image(painter = painterResource(
@@ -168,3 +161,8 @@ fun getJsonDataFromAsset(context: Context, data: String):String {
     return context.assets.open(data).bufferedReader().use { it.readText() }
 
 }
+
+
+
+
+

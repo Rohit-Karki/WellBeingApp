@@ -1,7 +1,6 @@
-package com.example.wellbeing.screens
+package com.example.wellbeing.home
 
-import android.content.Context
-import android.content.Intent
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -12,39 +11,34 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.wellbeing.ViewModel.MainViewModel
-import com.example.wellbeing.service.TrackingService
 import com.example.wellbeing.ui.theme.Poppins
 import com.example.wellbeing.ui.theme.PrimaryColor
 import com.example.wellbeing.ui.theme.Shapes
-import com.example.wellbeing.utils.Constants
+import androidx.compose.material.Button as Button1
 import androidx.compose.material.Text as Text1
 
-
 @Composable
-fun StepScreen() {
-    fun sendCommandToService(action: String, mContext: Context) {
-        mContext.startService(Intent(mContext, TrackingService::class.java).also {
-            it.action = Constants.ACTION_START_OR_RESUME_SERVICE
-        })
-    }
-
-    StepCounterCard()
+fun StepScreen(viewModel: MainViewModel) {
+//    fun sendCommandToService(action: String, mContext: Context) {
+//        mContext.startService(Intent(mContext, TrackingService::class.java).also {
+//            it.action = Constants.ACTION_START_OR_RESUME_SERVICE
+//        })
+//    }
+    StepCounterCard(viewModel)
 }
 
-@Composable
-fun StepCounterCard() {
-    val mContext = LocalContext.current
-    val viewModel = hiltViewModel<MainViewModel>()
-    val steps = viewModel.stepCount.value
-    val isRunning = viewModel.isRunning.value
 
-        Card(
+@SuppressLint("SuspiciousIndentation")
+@Composable
+fun StepCounterCard(viewModel: MainViewModel) {
+    val steps = viewModel.stepCount.collectAsState()
+    val isRunning = viewModel.isRunning.collectAsState()
+
+    Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
@@ -57,11 +51,11 @@ fun StepCounterCard() {
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text1(
-                            text = "$steps",
-                            fontWeight = FontWeight.ExtraBold,
-                            fontSize = 100.sp
+                            text = steps.value.toString(),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 50.sp
                         )
-                        Button(
+                        Button1(
                             modifier = Modifier
                                 .padding(0.dp)
                                 .clip(Shapes.medium),
@@ -71,8 +65,11 @@ fun StepCounterCard() {
                                 pressedElevation = 5.dp,
                                 disabledElevation = 0.dp
                             ), onClick = { /* Do something! */ }) {
-                            Text1("Paused")
-
+                            if(isRunning.value) {
+                                Text1("Resumed")
+                            }else{
+                                Text1(text = "Paused")
+                            }
                         }
                     }
                     Spacer(Modifier.width(180.0.dp))
@@ -87,11 +84,16 @@ fun StepCounterCard() {
                             disabledElevation = 0.dp
                         ),
                         onClick = {
+                            if(isRunning.value){
+                                viewModel.stopListening()
+                            }
+                            else{
+                                viewModel.startListening()
+                            }
 //                        sendCommandToService(
 //                            Constants.ACTION_START_OR_RESUME_SERVICE,
 //                            mContext)
                         },
-
                         shape = CircleShape,
                         contentPadding = PaddingValues(0.dp),
 
@@ -108,7 +110,6 @@ fun StepCounterCard() {
                         .size(30.dp)
                         .fillMaxWidth(1f)
                 )
-
                 Row(
                     horizontalArrangement = Arrangement.SpaceAround,
                     modifier = Modifier.padding(10.dp)
@@ -187,11 +188,10 @@ fun StepCounterCard() {
                         Text1(
                             text = "Walking Time",
                             fontSize = 9.sp,
-
                             modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
                         )
                     }
                 }
             }
         }
-    }
+}

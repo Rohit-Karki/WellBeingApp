@@ -8,7 +8,7 @@ import javax.inject.Inject
 class WaterIntakeRepository @Inject constructor(private val waterIntakeDAO: WaterIntakeDAO){
 
     suspend fun getWaterIntake(date:String): Flow<WaterIntake> {
-        if(waterIntakeDAO.isDateExist(date)) {
+        if(!waterIntakeDAO.isDateExist(date)) {
             waterIntakeDAO.insertWaterIntake(waterIntake = WaterIntake(0,0,date))
         }
         return waterIntakeDAO.getWaterIntake(date)

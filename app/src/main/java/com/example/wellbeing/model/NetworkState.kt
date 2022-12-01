@@ -1,11 +1,11 @@
 package com.example.wellbeing.model
 
-sealed class State<T>{
-    class Loading<T> : State<T>()
+sealed class NetworkState<T>{
+    class Loading<T> : NetworkState<T>()
 
-    data class Success<T>(val data: T) : State<T>()
+    data class Success<T>(val data: T) : NetworkState<T>()
 
-    data class Error<T>(val message: String) : State<T>()
+    data class Error<T>(val message: String) : NetworkState<T>()
 
     fun isLoading(): Boolean = this is Loading
 
@@ -16,24 +16,23 @@ sealed class State<T>{
     companion object {
 
         /**
-         * Returns [State.Loading] instance.
+         * Returns [NetworkState.Loading] instance.
          */
         fun <T> loading() = Loading<T>()
 
         /**
-         * Returns [State.Success] instance.
+         * Returns [NetworkState.Success] instance.
          * @param data Data to emit with status.
          */
         fun <T> success(data: T) =
             Success(data)
 
         /**
-         * Returns [State.Error] instance.
+         * Returns [NetworkState.Error] instance.
          * @param message Description of failure.
          */
         fun <T> error(message: String) =
             Error<T>(message)
-
 
     }
 }
