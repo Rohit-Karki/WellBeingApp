@@ -1,3 +1,4 @@
+
 package com.example.wellbeing.composable
 
 import androidx.compose.foundation.Image
@@ -17,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.wellbeing.R
 import com.example.wellbeing.model.FruitsData
 import com.example.wellbeing.ui.theme.Purple500
-
+import androidx.compose.ui.tooling.preview.Preview as Preview
 
 @Composable
 fun FruitsDataDetails(data: FruitsData){

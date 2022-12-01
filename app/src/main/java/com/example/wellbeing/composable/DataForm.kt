@@ -30,6 +30,7 @@ import com.example.wellbeing.ViewModel.LoginViewModel
 import com.example.wellbeing.ViewModel.MainViewModel
 import java.util.*
 
+@Preview
 @Composable
 fun DataForm(navController: NavController) {
 
