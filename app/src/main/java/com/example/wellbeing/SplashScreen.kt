@@ -15,15 +15,28 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getViewModel
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.fitness_app.composable.DataFormScreen
 import com.example.wellbeing.ViewModel.LoginViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 
+object SplashScreenPage :AndroidScreen(){
+    @Composable
+    override fun Content() {
+        val loginViewModel = getViewModel<LoginViewModel>()
+        SplashScreen(loginViewModel)
+    }
+
+}
 
 @Composable
-fun SplashScreen(navController : NavController){
+fun SplashScreen(loginViewModel: LoginViewModel){
+    val navController = LocalNavigator.currentOrThrow
 
-    val loginViewModel = hiltViewModel<LoginViewModel>()
     val scale = remember {
         Animatable(0f)
     }
@@ -37,12 +50,13 @@ fun SplashScreen(navController : NavController){
                 }
             )
         )
-        navController.popBackStack()
         if(loginViewModel.readFirstTime()){
-            navController.navigate("navigation_bar")
+            navController.popAll()
+            navController.push(HomeNavigationScreen)
         }
         else{
-            navController.navigate("login_form")
+            navController.popAll()
+            navController.push(DataFormScreen)
         }
     }
 

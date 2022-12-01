@@ -21,7 +21,7 @@ object FoodTab : Tab, AndroidScreen() {
     override val options: TabOptions
         @Composable
         get() {
-            val title = "Home"
+            val title = "Food"
             val icon = rememberVectorPainter(Icons.Default.Fastfood)
 
             return remember {

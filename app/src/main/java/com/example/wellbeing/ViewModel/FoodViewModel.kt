@@ -14,10 +14,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FoodViewModel @Inject constructor(val foodRepository: FoodRepository) :ViewModel(){
-
-    private val _foodCalorie : MutableStateFlow<NetworkState<FoodCalorie>> = MutableStateFlow(NetworkState.loading())
-    var foodCalorie :StateFlow<NetworkState<FoodCalorie>> = _foodCalorie
-    private val date :String = Date().toString()
+    private val date :String = Date().date.toString()
+    private val _foodCalorie : MutableStateFlow<FoodCalorie> = MutableStateFlow(FoodCalorie(0,0,0,0,0,date))
+    var foodCalorie :StateFlow<FoodCalorie> = _foodCalorie
 
     init {
         refresh()
@@ -28,8 +27,15 @@ class FoodViewModel @Inject constructor(val foodRepository: FoodRepository) :Vie
             foodRepository
                 .getFoodCalorie(date)
                 .collect { state ->
-                    _foodCalorie.value = NetworkState.success(data = state)
+                    _foodCalorie.value = state
                 }
+        }
+    }
+    fun addCalories(totalCalories:Long,carbs:Long,proteins:Long,fats:Long){
+        viewModelScope.launch {
+            foodRepository.updateWaterIntake(
+                foodCalorie = FoodCalorie(0,totalCalories,proteins,carbs,fats,date)
+            )
         }
     }
 }

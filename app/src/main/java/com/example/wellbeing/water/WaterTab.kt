@@ -6,9 +6,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
-import com.example.wellbeing.screens.WaterScreen
+import com.example.wellbeing.ViewModel.ReminderViewModel
+import com.example.wellbeing.water.WaterScreen
+import kotlinx.coroutines.InternalCoroutinesApi
 
 object WaterScreenTab : Tab, AndroidScreen() {
     override val options: TabOptions
@@ -25,8 +28,11 @@ object WaterScreenTab : Tab, AndroidScreen() {
             }
         }
 
+
+    @OptIn(InternalCoroutinesApi::class)
     @Composable
     override fun Content() {
-        WaterScreen()
+        val screenModel = getViewModel<ReminderViewModel>()
+        WaterScreen(screenModel)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.wellbeing.helpers
+//package com.example.wellbeing.helpers
 //
 //import android.app.AlarmManager
 //import android.app.PendingIntent
@@ -7,7 +7,7 @@ package com.example.wellbeing.helpers
 //import android.content.Intent
 //import android.content.pm.PackageManager
 //import android.util.Log
-//import com.example.fitness_app.receivers.BootReceiver
+//import com.example.wellbeing.receivers.BootReceiver
 //
 //import com.example.fitness_app.receivers.NotificationReceiver
 //import java.util.concurrent.TimeUnit

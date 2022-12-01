@@ -67,13 +67,7 @@ fun Exercise(){
                 ExerciseDataGridItem(data, rememberNavController())
             }
         }
-
     }
-
-
-
-
-
 }
 
 @OptIn(ExperimentalMaterial3Api::class)

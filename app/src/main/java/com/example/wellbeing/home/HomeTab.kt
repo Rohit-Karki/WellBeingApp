@@ -9,7 +9,11 @@ import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.tab.Tab
 import cafe.adriel.voyager.navigator.tab.TabOptions
+import com.example.wellbeing.ViewModel.FoodViewModel
 import com.example.wellbeing.ViewModel.MainViewModel
+import com.example.wellbeing.ViewModel.ReminderViewModel
+import com.example.wellbeing.custom.Screen
+import kotlinx.coroutines.InternalCoroutinesApi
 
 object HomeTab : Tab, AndroidScreen() {
 
@@ -27,9 +31,13 @@ object HomeTab : Tab, AndroidScreen() {
             }
         }
 
+    @OptIn(InternalCoroutinesApi::class)
     @Composable
     override fun Content() {
-        val screenModel = getViewModel<MainViewModel>()
-        StepScreen(screenModel)
+        val mainViewModel = getViewModel<MainViewModel>()
+        val reminderViewModel = getViewModel<ReminderViewModel>()
+        val foodViewModel = getViewModel<FoodViewModel>()
+
+        HomeScreen(mainViewModel,reminderViewModel,foodViewModel)
     }
 }

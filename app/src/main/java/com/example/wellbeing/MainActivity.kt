@@ -3,25 +3,24 @@ package com.example.wellbeing
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.rememberVectorPainter
-import cafe.adriel.voyager.androidx.AndroidScreen
-import cafe.adriel.voyager.core.screen.Screen
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.dp
+import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.tab.*
-import com.example.wellbeing.Exercise.ExerciseTab
-import com.example.wellbeing.food.FoodTab
-import com.example.wellbeing.home.HomeTab
 import com.example.wellbeing.screens.*
-import com.example.wellbeing.settings.SettingsTab
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,21 +31,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
             setContent {
                 Surface(color = Color(0xFF202020), modifier = Modifier.fillMaxSize()) {
-                    TabNavigator(tab = HomeTab){
-                        Scaffold(
-                            bottomBar = {
-                                BottomNavigation{
-                                    TabNavigationItems(tab = HomeTab)
-                                    TabNavigationItems(tab = WaterScreenTab)
-                                    TabNavigationItems(tab = ExerciseTab)
-                                    TabNavigationItems(tab = FoodTab)
-                                    TabNavigationItems(tab = SettingsTab)
-                                }
-                            }
-                        ) {
-                            CurrentTab()
-                        }
-                    }
+                    Navigator(
+                     SplashScreenPage
+                    )
                 }
             }
     }
@@ -54,10 +41,37 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun RowScope.TabNavigationItems(tab: Tab) {
-
     val tabNavigator = LocalTabNavigator.current
-    BottomNavigationItem(selected = tabNavigator.current == tab, onClick = { tabNavigator.current = tab },
-        icon = { Icon(tab.options.icon!!, contentDescription = tab.options.title ) }
+    BottomNavigationItem(
+        selected = tabNavigator.current == tab, onClick = { tabNavigator.current = tab },
+        modifier = Modifier
+            .align(Alignment.CenterVertically),
+        icon = { Icon(
+            tab.options.icon!!,
+            contentDescription = tab.options.title,
+            modifier = Modifier
+                .padding(
+                    horizontal = 15.dp,
+                    vertical = 10.dp
+                )
+                .fillMaxWidth()
+                .background(color =
+            if(tabNavigator.current == tab)
+                Color(232,222,248)
+            else
+                Color.Transparent,
+                    shape = androidx.compose.material3.Shapes.Full
+            ),
+        ) },
+        label = {->
+            Text(
+                text = tab.options.title,
+                style = TextStyle(
+                    color = Color.Black
+                )
+            )
+        },
+        alwaysShowLabel = true,
     )
 
 }

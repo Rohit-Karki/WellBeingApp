@@ -1,6 +1,5 @@
 package com.example.wellbeing.food
 
-import android.app.usage.NetworkStats
 import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
@@ -34,6 +33,7 @@ import androidx.compose.ui.text.TextStyle
 import com.example.wellbeing.ViewModel.FoodViewModel
 import com.example.wellbeing.model.FoodCalorie
 import com.example.wellbeing.model.NetworkState
+import com.example.wellbeing.model.Step
 
 @Composable
 fun FoodScreen(foodViewModel: FoodViewModel) {
@@ -49,15 +49,9 @@ fun FoodScreen(foodViewModel: FoodViewModel) {
             modifier = Modifier
                 .fillMaxWidth()
         ) {
-            when(foodCalorie.value){
-                is NetworkState.Loading -> {
-                    AnimatedShimmer()
-                }
-                is NetworkState.Success -> {
-                    ProgressBarCard((foodCalorie.value as NetworkState.Success<FoodCalorie>).data)
-                }
-            }
+            ProgressBarCard(foodCalorie = foodCalorie.value)
         }
+
         Spacer(modifier = Modifier.height(10.dp))
         // Breakfast
         Column(
@@ -127,7 +121,6 @@ fun FoodScreen(foodViewModel: FoodViewModel) {
         }
         Spacer(modifier = Modifier.height(10.dp))
         //Lunch
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -290,14 +283,14 @@ fun ProgressBarCard(foodCalorie: FoodCalorie){
                 ) {
                     Text(text = "Proteins, gr")
                     LinearProgressIndicator(
-                        progress = foodCalorie.proteins.toFloat(),
+                        progress = foodCalorie.proteins.toFloat()/107,
                         modifier = Modifier
                             .height(25.dp)
                             .clip(RoundedCornerShape(15.dp)),
                         backgroundColor = Color(175,238,238),
                         color = Color(127,255,212)
                     ) //progress color)
-                    Text(text = "${foodCalorie.proteins} of 97")
+                    Text(text = "${foodCalorie.proteins} of 107")
                 }
 
                 Column(
@@ -306,7 +299,7 @@ fun ProgressBarCard(foodCalorie: FoodCalorie){
                 ) {
                     Text(text = "Fats, gr")
                     LinearProgressIndicator(
-                        progress = foodCalorie.fats.toFloat(),
+                        progress = foodCalorie.fats.toFloat()/97,
                         modifier = Modifier
                             .height(25.dp)
                             .clip(RoundedCornerShape(15.dp)),
@@ -322,7 +315,7 @@ fun ProgressBarCard(foodCalorie: FoodCalorie){
                 ) {
                     Text(text = "Carbs, gr")
                     LinearProgressIndicator(
-                        progress = foodCalorie.carbs.toFloat(),
+                        progress = foodCalorie.carbs.toFloat()/97,
                         modifier = Modifier
                             .height(25.dp)
                             .clip(RoundedCornerShape(15.dp)),
@@ -376,6 +369,7 @@ fun CircularProgressbar1(
         fontSize = 16.sp
     )
 ) {
+    Log.d("foodcalorie",foodCalorie.toString())
     // It remembers the data usage value
     var dataUsageRemember by remember {
         mutableStateOf(-1f)
@@ -393,7 +387,6 @@ fun CircularProgressbar1(
     LaunchedEffect(Unit) {
         dataUsageRemember = dataUsage
     }
-
     Box(
         modifier = Modifier
             .size(size),
@@ -422,7 +415,7 @@ fun CircularProgressbar1(
             )
 
             // Convert the dataUsage to angle
-            val sweepAngle = (dataUsageAnimate.value) * 360 / 100
+            val sweepAngle = (dataUsageAnimate.value) * 360 / 1200
 
             // Foreground indicator
             drawArc(

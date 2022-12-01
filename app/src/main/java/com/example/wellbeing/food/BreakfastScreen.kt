@@ -22,7 +22,6 @@ fun BreakfastScreen(foodViewModel: FoodViewModel) {
         FoodItem(foodViewModel)
         Spacer(modifier = Modifier.height(10.dp))
         FoodItem(foodViewModel)
-
     }
 }
 

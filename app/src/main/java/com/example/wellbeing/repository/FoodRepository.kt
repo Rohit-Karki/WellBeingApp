@@ -22,6 +22,4 @@ class FoodRepository @Inject constructor(private val foodDAO: FoodDAO) {
             foodDAO.updateFoodCalorie(foodCalorie.date, foodCalorie.totalCalories,foodCalorie.proteins,foodCalorie.fats,foodCalorie.carbs)
         }
     }
-
-
 }

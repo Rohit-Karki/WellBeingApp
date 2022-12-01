@@ -26,14 +26,29 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import cafe.adriel.voyager.androidx.AndroidScreen
+import cafe.adriel.voyager.hilt.getViewModel
+import cafe.adriel.voyager.navigator.LocalNavigator
+import cafe.adriel.voyager.navigator.currentOrThrow
+import com.example.wellbeing.HomeNavigationScreen
 import com.example.wellbeing.ViewModel.LoginViewModel
 import com.example.wellbeing.ViewModel.MainViewModel
 import java.util.*
 
-@Composable
-fun DataForm(navController: NavController) {
+object DataFormScreen :AndroidScreen(){
+    @Composable
+    override fun Content() {
+        val loginViewModel = getViewModel<LoginViewModel>()
+        DataForm(loginViewModel)
+    }
 
-    val loginViewModel = hiltViewModel<LoginViewModel>()
+}
+
+
+@Composable
+fun DataForm(loginViewModel:LoginViewModel) {
+
+    val navController = LocalNavigator.currentOrThrow
 
     Column(
         horizontalAlignment = Alignment.Start,
@@ -236,9 +251,9 @@ fun DataForm(navController: NavController) {
             ) {
                 Button(
                     onClick = {
-                      loginViewModel.saveCredentials(name = name,age.toInt(),weight.toInt(),height.toInt(),wakeUpTimeInMillis.value,sleepTimeInMillis.value)
-                        navController.popBackStack()
-                        navController.navigate("navigation_bar")
+                        loginViewModel.saveCredentials(name = name,age.toInt(),weight.toInt(),height.toInt(),wakeUpTimeInMillis.value,sleepTimeInMillis.value)
+                        navController.popAll()
+                        navController.push(HomeNavigationScreen)
                     },
                     colors = ButtonDefaults.buttonColors(backgroundColor = Blue),
                     shape = CircleShape,

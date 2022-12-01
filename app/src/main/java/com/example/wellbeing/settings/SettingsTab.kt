@@ -15,7 +15,7 @@ object SettingsTab: Tab, AndroidScreen(){
     override val options: TabOptions
         @Composable
         get()  {
-            val title = "Home"
+            val title = "Settings"
             val icon = rememberVectorPainter(Icons.Default.Settings)
 
             return remember {
