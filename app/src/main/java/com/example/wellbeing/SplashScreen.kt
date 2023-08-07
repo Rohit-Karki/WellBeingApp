@@ -13,16 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.fitness_app.composable.DataFormScreen
 import com.example.wellbeing.ViewModel.LoginViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 
 object SplashScreenPage :AndroidScreen(){
     @Composable

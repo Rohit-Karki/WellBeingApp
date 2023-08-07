@@ -17,6 +17,8 @@ import com.example.wellbeing.sensor.MeasurableSensor
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.lang.String.format
 import java.time.LocalDate
@@ -28,8 +30,6 @@ class MainViewModel @Inject constructor(
     private val stepSensor: MeasurableSensor,
     private val stepRepository: StepRepository
 ) :ViewModel() {
-    private val _step :MutableStateFlow<NetworkState<Step>> = MutableStateFlow<NetworkState<Step>>(NetworkState.loading())
-    val step :StateFlow<NetworkState<Step>> = _step
 
     private val _isRunning :MutableStateFlow<Boolean> = MutableStateFlow<Boolean>(true)
     val isRunning :StateFlow<Boolean> = _isRunning
@@ -37,7 +37,7 @@ class MainViewModel @Inject constructor(
     private val date :String = Date().date.toString()
 
     private val _totalSteps :MutableStateFlow<Step> = MutableStateFlow(Step(0,0,0,0,date))
-    val totalSteps :StateFlow<Step>  = _totalSteps
+    val totalSteps :StateFlow<Step>  = _totalSteps.asStateFlow()
 
     init {
         refresh()
@@ -49,18 +49,16 @@ class MainViewModel @Inject constructor(
             stepRepository
                 .getStep(date)
                 .collect { state ->
-                    _step.value = NetworkState.success(data = state)
-                    _totalSteps.value = (_step.value as NetworkState.Success<Step>).data
-                    Log.d("Collect", totalSteps.value.step_calories.toString())
+                    _totalSteps.value = state
                 }
         }
     }
 
     fun stopListening(){
         viewModelScope.launch {
-                stepRepository.updateStep(
-                    Step(0,totalSteps.value.step_calories,0,0,date)
-                )
+            stepRepository.updateStep(
+                Step(0,totalSteps.value.step_calories,0,0,date)
+            )
         }
         _isRunning.value = false
         stepSensor.stopListening()
@@ -69,9 +67,11 @@ class MainViewModel @Inject constructor(
         _isRunning.value = true
         stepSensor.startListening()
         stepSensor.setOnSensorValuesChangedListener { values->
-            Log.d("SetonSensor", values[0].toString())
-            Log.d("SetonSensor", totalSteps.value.step_calories.toString())
-            _totalSteps.value.step_calories = _totalSteps.value.step_calories + 1
+            Log.d("setonsensor",totalSteps.toString())
+            _totalSteps.update {step->
+                Step(0,step.step_calories+1,0,0,date)
+            }
+//            _totalSteps.value = _totalSteps.value.copy(step_calories = _totalSteps.value.step_calories+1)
         }
     }
 }

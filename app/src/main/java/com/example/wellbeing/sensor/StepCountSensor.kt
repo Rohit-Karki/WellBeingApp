@@ -6,6 +6,6 @@ import android.hardware.Sensor
 
 class StepCountSensor(context: Context) :AndroidSensor(
     context = context,
-    sensorFeature = PackageManager.FEATURE_SENSOR_STEP_COUNTER,
-    sensorType = Sensor.TYPE_STEP_COUNTER
+    sensorFeature = PackageManager.FEATURE_SENSOR_STEP_DETECTOR,
+    sensorType = Sensor.TYPE_STEP_DETECTOR
 )

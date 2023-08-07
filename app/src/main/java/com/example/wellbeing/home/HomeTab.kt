@@ -12,7 +12,6 @@ import cafe.adriel.voyager.navigator.tab.TabOptions
 import com.example.wellbeing.ViewModel.FoodViewModel
 import com.example.wellbeing.ViewModel.MainViewModel
 import com.example.wellbeing.ViewModel.ReminderViewModel
-import com.example.wellbeing.custom.Screen
 import kotlinx.coroutines.InternalCoroutinesApi
 
 object HomeTab : Tab, AndroidScreen() {

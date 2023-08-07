@@ -20,28 +20,22 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import cafe.adriel.voyager.androidx.AndroidScreen
 import cafe.adriel.voyager.hilt.getViewModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import com.example.wellbeing.HomeNavigationScreen
 import com.example.wellbeing.ViewModel.LoginViewModel
-import com.example.wellbeing.ViewModel.MainViewModel
 import java.util.*
 
-object DataFormScreen :AndroidScreen(){
+object DataFormScreen :AndroidScreen() {
     @Composable
     override fun Content() {
         val loginViewModel = getViewModel<LoginViewModel>()
         DataForm(loginViewModel)
     }
-
 }
 
 

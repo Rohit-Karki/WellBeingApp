@@ -17,7 +17,6 @@ class UserDataPreference @Inject constructor(context:Context) {
         val wakeUpTimeKey = longPreferencesKey("wakeUpTime")
         val sleepTimeKey = longPreferencesKey("sleepTime")
         val isFirstTime = booleanPreferencesKey("isFirstTime")
-
     }
 
     private val dataStore = context.dataStore
@@ -30,7 +29,6 @@ class UserDataPreference @Inject constructor(context:Context) {
             preferences[wakeUpTimeKey] = wakeUpTime
             preferences[sleepTimeKey] = sleepTime
             preferences[isFirstTime] = true
-
         }
     }
 }

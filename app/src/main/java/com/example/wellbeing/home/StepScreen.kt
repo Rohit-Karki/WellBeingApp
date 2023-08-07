@@ -38,7 +38,6 @@ fun StepScreen(viewModel: MainViewModel) {
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun StepCounterCard(viewModel: MainViewModel) {
-    val steps = viewModel.step.collectAsState()
     val totalSteps = viewModel.totalSteps.collectAsState()
     val isRunning = viewModel.isRunning.collectAsState()
 

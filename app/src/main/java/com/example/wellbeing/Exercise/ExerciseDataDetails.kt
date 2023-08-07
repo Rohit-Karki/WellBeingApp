@@ -23,7 +23,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wellbeing.R
@@ -65,8 +64,8 @@ fun ExerciseBody(data: ExerciseData) {
             .fillMaxSize(),
         elevation = 1.dp,
         backgroundColor = Color.Gray,
-        shape = RoundedCornerShape(50.dp,50.dp,0.dp,0.dp)
-    ){
+        shape = RoundedCornerShape(50.dp, 50.dp, 0.dp, 0.dp)
+    ) {
         HeadingText(data)
         ExercisePhoto(data)
         ExerciseOthers(data)
@@ -91,10 +90,8 @@ fun ExercisePhoto(data: ExerciseData) {
     Box(modifier = Modifier
         .padding(vertical = 80.dp),
     ) {
-        Column(
-        ) {
             Image(painter = painterResource(
-                when(data.id){
+                id =  when(data.id){
                     1L-> R.drawable.lunges
                     2L -> R.drawable.pushups
                     3L -> R.drawable.squats
@@ -123,93 +120,97 @@ fun ExercisePhoto(data: ExerciseData) {
                     ,
                 contentScale = ContentScale.Crop
             )
-        }
+//            Spacer(modifier = Modifier.padding(10.dp))
     }
 }
 
 @Composable
-fun ExerciseOthers(data: ExerciseData)
-{
-    Column(modifier = Modifier.padding(top = 420.dp,bottom = 80.dp)) {
-        Text(
-            text = data.desc,
-            modifier = Modifier
-//                        .align(Alignment.Bottom)
-                .padding(bottom = 10.dp)
-            ,
-            color = Color.Black,
-            fontSize =  16.sp,
-            fontWeight = FontWeight.Normal,
-        )
-        Row() {
-            Card(
-                shape = RoundedCornerShape(0, 100, 100, 0),
-                backgroundColor = Color.White,
+fun ExerciseOthers(data: ExerciseData) {
+        Column(
+            modifier = Modifier.padding(top = 420.dp, bottom = 80.dp)
+        ) {
+            Text(
+                text = data.desc,
                 modifier = Modifier
-                    .height(120.dp)
-                    .width(180.dp),
-                elevation = 0.dp
-            ) {
-                Row() {
-                    Text(
-                        text = "320",
-                        fontFamily = Poppins,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 40.sp,
-                        color = Color.Green,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 30.dp, start = 20.dp)
-                    )
-                    Text(
-                        text = "cals",
-                        fontFamily = Poppins,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 19.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(top = 50.dp, start = 10.dp)
-                    )
-                }
-            }
-            Row(modifier = Modifier.padding(top = 40.dp)) {
-                val textState = remember{ mutableStateOf("") }
-                TextField(
+//                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 10.dp),
+                color = Color.Black,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+            )
+            Row() {
+                Card(
+                    shape = RoundedCornerShape(0, 100, 100, 0),
+                    backgroundColor = Color.White,
                     modifier = Modifier
-                        .padding(start = 20.dp)
-                        .width(110.dp)
-                        .height(30.dp)
-                    ,
-                    value = textState.value,
-                    onValueChange = {
-                        textState.value = it
-                    },
-                    label = {
-                        Text(text = "Enter Amount(30)", fontSize = 8.sp)
+                        .height(120.dp)
+                        .width(180.dp),
+                    elevation = 0.dp
+                ) {
+                    Row() {
+                        Text(
+                            text = data.calorie.toString(),
+                            fontFamily = Poppins,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 40.sp,
+                            color = Color.Green,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(top = 30.dp, start = 20.dp)
+                        )
+                        Text(
+                            text = "cals",
+                            fontFamily = Poppins,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 19.sp,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(top = 50.dp, start = 10.dp)
+                        )
                     }
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                Button(onClick = { /*TODO*/ },
-                    colors = buttonColors(Color.Green),
-                    elevation = ButtonDefaults.elevation(
-                        defaultElevation = 3.dp,
-                        pressedElevation = 5.dp,
-                        disabledElevation = 0.dp),
-                modifier = Modifier
-                    .width(70.dp)
-                    .height(30.dp)){
-                    Text(
-                        text = "min",
-                        fontWeight = FontWeight.Light,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Center,
+                }
+                Row(modifier = Modifier.padding(top = 40.dp)) {
+                    val textState = remember { mutableStateOf("") }
+                    TextField(
+                        modifier = Modifier
+                            .padding(start = 20.dp)
+                            .width(110.dp)
+                            .height(30.dp),
+                        value = textState.value,
+                        onValueChange = {
+                            textState.value = it
+                        },
+                        label = {
+                            Text(
+                                text = "Enter Amount(30)",
+                                fontSize = 8.sp,
+                                modifier = Modifier.padding(5.dp)
+                            )
+                        }
                     )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Button(
+                        onClick = { /*TODO*/ },
+                        colors = buttonColors(Color.Green),
+                        elevation = ButtonDefaults.elevation(
+                            defaultElevation = 3.dp,
+                            pressedElevation = 5.dp,
+                            disabledElevation = 0.dp
+                        ),
+                        modifier = Modifier
+                            .width(70.dp)
+                            .height(30.dp)
+                    ) {
+                        Text(
+                            text = "min",
+                            fontWeight = FontWeight.Light,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
                 }
             }
         }
-
-
-    }
+        Spacer(modifier = Modifier.width(100.dp))
 }
-
 
 
 

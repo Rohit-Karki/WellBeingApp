@@ -39,18 +39,14 @@ import com.example.wellbeing.model.Step
 fun FoodScreen(foodViewModel: FoodViewModel) {
     val navigator = LocalNavigator.currentOrThrow
     val foodCalorie = foodViewModel.foodCalorie.collectAsState()
+    Log.d("refresh viewmodel",foodCalorie.toString())
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(bottom = 60.dp)
             .verticalScroll(state = rememberScrollState())
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-        ) {
-            ProgressBarCard(foodCalorie = foodCalorie.value)
-        }
+        ProgressBarCard(foodCalorie = foodCalorie.value)
 
         Spacer(modifier = Modifier.height(10.dp))
         // Breakfast
@@ -265,12 +261,12 @@ fun ProgressBarCard(foodCalorie: FoodCalorie){
                 .height(500.dp)
                 .padding(2.dp)
                 .background(color = Color.White)) {
-            Row(
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = foodCalorie.date)
-            }
+//            Row(
+//                horizontalArrangement = Arrangement.Center,
+//                verticalAlignment = Alignment.CenterVertically
+//            ) {
+//                Text(text = foodCalorie.date)
+//            }
             CircularProgressbar1(foodCalorie)
             Row(
                 modifier = Modifier
@@ -370,23 +366,7 @@ fun CircularProgressbar1(
     )
 ) {
     Log.d("foodcalorie",foodCalorie.toString())
-    // It remembers the data usage value
-    var dataUsageRemember by remember {
-        mutableStateOf(-1f)
-    }
 
-    // This is to animate the foreground indicator
-    val dataUsageAnimate = animateFloatAsState(
-        targetValue = dataUsageRemember,
-        animationSpec = tween(
-            durationMillis = animationDuration
-        )
-    )
-
-    // This is to start the animation when the activity is opened
-    LaunchedEffect(Unit) {
-        dataUsageRemember = dataUsage
-    }
     Box(
         modifier = Modifier
             .size(size),
@@ -415,7 +395,7 @@ fun CircularProgressbar1(
             )
 
             // Convert the dataUsage to angle
-            val sweepAngle = (dataUsageAnimate.value) * 360 / 1200
+            val sweepAngle = (dataUsage) * 360 / 1200
 
             // Foreground indicator
             drawArc(
@@ -437,7 +417,7 @@ fun CircularProgressbar1(
 
         // Display the data usage value
         DisplayText(
-            animateNumber = dataUsageAnimate,
+            animateNumber = dataUsage,
             dataTextStyle = dataTextStyle,
             remainingTextStyle = remainingTextStyle
         )
@@ -447,7 +427,7 @@ fun CircularProgressbar1(
 
 @Composable
 private fun DisplayText(
-    animateNumber: State<Float>,
+    animateNumber: Float,
     dataTextStyle: TextStyle,
     remainingTextStyle: TextStyle
 ) {
@@ -458,7 +438,7 @@ private fun DisplayText(
 
         // Text that shows the number inside the circle
         Text(
-            text = (animateNumber.value).toInt().toString() ,
+            text = (animateNumber).toInt().toString() ,
             style = dataTextStyle
         )
 

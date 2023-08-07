@@ -60,7 +60,6 @@ fun Exercise(){
             )
         }
         LazyColumn(
-
             modifier = Modifier.padding(10.dp)
         ){
             items(Exercisedata){ data->
